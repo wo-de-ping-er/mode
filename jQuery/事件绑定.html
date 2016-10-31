@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			ul{width: 300px;height: 100%;list-style: none;}
+			ul li{width: 300px;height: 30px;background: red;border: 1px solid blue;}
+			ul li:hover{background: yellow;}
+		</style>
+		<script src="js/jquery-1.12.4.js"></script>
+		<script>
+			$(function(){
+				var $div = $('#d1');
+				var $ul = $div.find('ul');
+				var $li = $div.find('li');
+//				$li.click(function(e){
+//					alert($(e.target).index())
+//				});
+				$li.bind({
+					'click':function(e){
+					alert($(e.target).index())
+				}
+//              ,'mouseover':function(e){
+//					alert($(e.target).css('width'))
+//				}
+				});
+				$li.bind({
+					'click':function(e){
+					alert($(e.target).css('width'))
+				}
+				});
+				$li.bind({
+					'mouseover':function(e){
+					alert($(e.target).css('width'))
+				}
+				});
+				$li.unbind('click');
+				$li.off('mouseover');
+			});
+		</script>
+	</head>
+	<body>
+		<div id="d1">
+			<ul>
+				<li>111111</li>
+				<li>222222</li>
+				<li>333333</li>
+				<li>444444</li>
+				<li>555555</li>
+				<li>666666</li>
+			</ul>
+		</div>
+	</body>
+</html>

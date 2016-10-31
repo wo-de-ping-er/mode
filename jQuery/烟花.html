@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+		    body{background: #000;width: 100%;height: 100%;overflow: hidden;}
+			.fire{position: absolute;width: 10px;height: 30px;background: mediumpurple;}
+			.spark{position: absolute;width: 3px;height: 3px;}
+		</style>
+		<script src="js/jquery-1.12.4.js"></script>
+		<script>
+			$(function(){
+				var viewHeight = $(document).outerHeight();
+				$(document).click(function(e){
+					var $fire = $('<div/>');
+					$('body').append($fire);
+					$fire.addClass('fire');
+					$fire.css({left:e.clientX,top:viewHeight-10})
+					$fire.animate({top:e.clientY,height:3},1000,function(){
+						$fire.remove();
+						explode(e);
+					})
+				})
+				function explode(pos){
+					var n = Math.floor(Math.random()*50)+30;
+					for(var i=0;i<n;i++){
+						new Spark(pos).move();
+					}
+				}
+			})
+			function Spark(pos){
+				this.spark = $('<div/>');
+				$('body').append(this.spark);
+				this.spark.addClass('spark');
+				this.spark.css({left:pos.clientX,top:pos.clientY});
+				var colors = Math.ceil(Math.random()*0xffffff).toString(16);
+				this.spark.css({background:colors});
+			}
+			Spark.prototype.move = function(){
+				var that = this;
+			    var speedX = Math.ceil(Math.random()*40)-20;
+			    var speedY = Math.ceil(Math.random()*40)-20;
+			    var timer = setInterval(function(){
+//			    	console.log(that)
+			    var _left = that.spark.css('left')*1+speedX;
+			    var _top = that.spark.css('top')*1+speedY;
+			    that.spark.css({left:_left,top:_top});
+			    if(_top>=$(body).Height()){
+			    	clearInterval(timer);
+			    	that.spark.remove();
+			    }
+			  },30)
+		}
+		</script>
+	</head>
+	<body>
+	</body>
+</html>
